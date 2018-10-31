@@ -7,15 +7,24 @@
 # Structure du projet
    Le projet est composé de plusieurs modules (chaque microservice correspond à un module)
 
-      * module client-ui: module représentant le client de notre application      
-      * module config-server : module permettant de définir le dépôt distant qui contiendra les "properties" des microservices de l'application
-      * module config-server-repo : module contenant les propriétés des autres microservices (ce module est présent à l'adresse https://github.com/cedriccob/mcommerce-repo.git) une modification dans le dépôt distant se répercute automatiquement sur le projet sans avoir besoin de le réinitialiser
-      * module eureka-server : module permettant de voir toutes les instances des microservices actives dans l'application
-      * module microservice-produit : module représentant les produits à acheter
-      * module microservice-commande : module permettant de commander le produit après l'avoir choisi (panier)
-      * module microservice-paiement : module permettant de confirmer le paiement du produit
-      * module spring-admin : module permettant de surveiller le fonctionnement et l'état des microservices de l'application
-      * module zuul-server : module qui contient l'API Gateway, point d'entrée de l'application et qui redirige vers le microservice correspondant
+      * module client-ui
+            représentant le client de notre application      
+      * module config-server 
+            permettant de définir le dépôt distant qui contiendra les "properties" des microservices de l'application
+      * module config-server-repo 
+            contenant les propriétés des autres microservices (ce module est présent à l'adresse https://github.com/cedriccob/mcommerce-repo.git) une modification dans le dépôt distant se répercute automatiquement sur le projet sans avoir besoin de le réinitialiser
+      * module eureka-server 
+            permettant de voir toutes les instances des microservices actives dans l'application
+      * module microservice-produit 
+            représentant les produits à acheter
+      * module microservice-commande 
+            permettant de commander le produit après l'avoir choisi (panier)
+      * module microservice-paiement 
+            permettant de confirmer le paiement du produit
+      * module spring-admin 
+            permettant de surveiller le fonctionnement et l'état des microservices de l'application
+      * module zuul-server 
+            contient l'API Gateway, point d'entrée de l'application et qui redirige vers le microservice correspondant
       
 
 
