@@ -73,4 +73,4 @@
 * [Spring Admin](https://codecentric.github.io/spring-boot-admin/1.5.7/) permet de surveiller l'état de l'application
 
 
-&copy; Cédric COBBOLD - Ingénieur Etudes et développement
+&copy; Cédric COBBOLD - Ingénieur Etudes et Développement
