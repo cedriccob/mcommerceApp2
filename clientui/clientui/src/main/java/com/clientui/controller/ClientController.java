@@ -1,9 +1,12 @@
+/**
+ *
+ */
 package com.clientui.controller;
 
 import com.clientui.beans.CommandBean;
 import com.clientui.beans.PaiementBean;
 import com.clientui.beans.ProductBean;
-import com.clientui.proxies.MicroserviceCommandesProxy;
+import com.clientui.proxies.MicroserviceCommandeProxy;
 import com.clientui.proxies.MicroservicePaiementsProxy;
 import com.clientui.proxies.MicroserviceProduitsProxy;
 import org.slf4j.Logger;
@@ -20,6 +23,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ *
+ */
 @Controller
 public class ClientController {
 
@@ -30,11 +36,15 @@ public class ClientController {
     private MicroserviceProduitsProxy microserviceProduitsProxy;
 
     @Autowired
-    private MicroserviceCommandesProxy microserviceCommandesProxy;
+    private MicroserviceCommandeProxy microserviceCommandeProxy;
 
     @Autowired
     private MicroservicePaiementsProxy microservicePaiementsProxy;
 
+    /**
+     * @param model
+     * @return
+     */
     @RequestMapping("/")
     public String accueil(Model model){
         List<ProductBean> produits = microserviceProduitsProxy.listeDesProduits();
@@ -43,6 +53,11 @@ public class ClientController {
         return "accueil";
     }
 
+    /**
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping("details-produit/{id}")
     public String productDetail(Model model, @PathVariable int id){
         ProductBean produit = microserviceProduitsProxy.recupererUnProduit(id);
@@ -50,15 +65,20 @@ public class ClientController {
         return "product";
     }
 
-    @RequestMapping("commander-produit/{productId}/{productPrix}")
+    /**
+     * @param model
+     * @param productId
+     * @param productPrix
+     * @return
+     */
+    @RequestMapping(value = "/commander-produit/{productId}/{productPrix}")
     public String commandProduct(Model model, @PathVariable int productId, @PathVariable double productPrix){
         CommandBean commandBean = new CommandBean();
 
         commandBean.setProductId(productId);
         commandBean.setQuantite(1);
         commandBean.setDateCommande(new Date());
-
-        CommandBean commandAdded = microserviceCommandesProxy.addCommand(commandBean);
+        CommandBean commandAdded = microserviceCommandeProxy.addCommand(commandBean);
 
         model.addAttribute("commandAdded",commandAdded);
         model.addAttribute("prix",productPrix);
@@ -66,7 +86,14 @@ public class ClientController {
         return "paiement";
     }
 
-    @RequestMapping(value="/payer-command/{idCommand}/{montantCommand}")
+    /**
+     *
+     * @param model
+     * @param idCommand
+     * @param montantCommand
+     * @return
+     */
+    @RequestMapping(value = "payer-command/{idCommand}/{montantCommand}")
     public String payCommand(Model model, @PathVariable int idCommand, @PathVariable double montantCommand){
 
         PaiementBean paiementBean = new PaiementBean();
@@ -83,9 +110,13 @@ public class ClientController {
 
         model.addAttribute("paiementOk",paiementAccepte);
 
-    return "confirmation";
+        return "confirmation";
     }
 
+    /**
+     *
+     * @return
+     */
     private Long numCarte() {
         return ThreadLocalRandom.current().nextLong(1000000000000000L,9000000000000000L);
     }

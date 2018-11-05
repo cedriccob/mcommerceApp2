@@ -25,7 +25,7 @@ public class CommandeController {
 
         if(nouvelleCommande == null) throw new ImpossibleAjouterCommandeException("Impossible d'ajouter cette commande");
 
-        return new ResponseEntity<Commande>(commande, HttpStatus.CREATED);
+        return new ResponseEntity<>(commande, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/commandes/{id}")

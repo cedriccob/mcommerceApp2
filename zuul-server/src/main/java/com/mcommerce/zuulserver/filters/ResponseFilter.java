@@ -6,16 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Component
-public class LogFilter extends ZuulFilter {
-
+public class ResponseFilter extends ZuulFilter {
     Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public String filterType() {
-        return "pre";
+        return "post";
     }
 
     @Override
@@ -23,17 +22,21 @@ public class LogFilter extends ZuulFilter {
         return 1;
     }
 
+    //désactivé
     @Override
     public boolean shouldFilter() {
-        return true;
+        return false;
     }
 
     @Override
     public Object run() {
 
-        HttpServletRequest req = RequestContext.getCurrentContext().getRequest();
+        HttpServletResponse response = RequestContext.getCurrentContext().getResponse();
 
-        log.info("**** Requête interceptée ! L'URL est : {} ", req.getRequestURL());
+        response.setStatus(400);
+
+        log.info(" CODE HTTP {} ", response.getStatus());
+
 
         return null;
     }
