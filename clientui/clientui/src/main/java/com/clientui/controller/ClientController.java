@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- *
+ * Controller du client
  */
 @Controller
 public class ClientController {
@@ -42,8 +42,9 @@ public class ClientController {
     private MicroservicePaiementsProxy microservicePaiementsProxy;
 
     /**
+     * fonction appelée au démarrage de l'application
      * @param model
-     * @return
+     * @return template accueil
      */
     @RequestMapping("/")
     public String accueil(Model model){
@@ -54,9 +55,10 @@ public class ClientController {
     }
 
     /**
+     * fonction appelée lors du clic sur un produit
      * @param model
      * @param id
-     * @return
+     * @return template product
      */
     @RequestMapping("details-produit/{id}")
     public String productDetail(Model model, @PathVariable int id){
@@ -66,10 +68,11 @@ public class ClientController {
     }
 
     /**
+     * fonction appelée lors du clic sur le bouton commander
      * @param model
      * @param productId
      * @param productPrix
-     * @return
+     * @return template paiement
      */
     @RequestMapping(value = "/commander-produit/{productId}/{productPrix}")
     public String commandProduct(Model model, @PathVariable int productId, @PathVariable double productPrix){
@@ -87,11 +90,11 @@ public class ClientController {
     }
 
     /**
-     *
+     * fonction appelée lors du clic sur payer
      * @param model
      * @param idCommand
      * @param montantCommand
-     * @return
+     * @return template confirmation
      */
     @RequestMapping(value = "payer-command/{idCommand}/{montantCommand}")
     public String payCommand(Model model, @PathVariable int idCommand, @PathVariable double montantCommand){
@@ -114,8 +117,8 @@ public class ClientController {
     }
 
     /**
-     *
-     * @return
+     * fonction random pour simuler un numéro de carte
+     * @return un nombre aléatoire
      */
     private Long numCarte() {
         return ThreadLocalRandom.current().nextLong(1000000000000000L,9000000000000000L);

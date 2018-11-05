@@ -25,7 +25,7 @@ public class CommandeController {
 
         if(nouvelleCommande == null) throw new ImpossibleAjouterCommandeException("Impossible d'ajouter cette commande");
 
-        return new ResponseEntity<>(commande, HttpStatus.CREATED);
+        return new ResponseEntity<Commande>(commande, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/commandes/{id}")
@@ -36,5 +36,16 @@ public class CommandeController {
         if(!commande.isPresent()) throw new CommandeNotFoundException("Cette commande n'existe pas");
 
         return commande;
+    }
+
+    /*
+     * Permet de mettre à jour une commande existante.
+     * save() mettra à jours uniquement les champs renseignés dans l'objet commande reçu. Ainsi dans ce cas, comme le champs date dans "commande" n'est
+     * pas renseigné, la date précédemment enregistrée restera en place
+     **/
+    @PutMapping(value = "/commandes")
+    public void updateCommande(@RequestBody Commande commande) {
+
+        commandesDao.save(commande);
     }
 }

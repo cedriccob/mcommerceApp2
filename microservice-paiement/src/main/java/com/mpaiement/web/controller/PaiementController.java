@@ -32,7 +32,7 @@ public class PaiementController {
 
         if(nouveauPaiement == null) throw new PaiementImpossibleException("Erreur, impossible d'établir le paiement, réessayez plus tard");
 
-        return new ResponseEntity<>(nouveauPaiement, HttpStatus.CREATED);
+        return new ResponseEntity<Paiement>(nouveauPaiement, HttpStatus.CREATED);
 
     }
 
