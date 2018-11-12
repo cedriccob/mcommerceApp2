@@ -6,7 +6,7 @@ package com.clientui.controller;
 import com.clientui.beans.CommandBean;
 import com.clientui.beans.PaiementBean;
 import com.clientui.beans.ProductBean;
-import com.clientui.proxies.MicroserviceCommandeProxy;
+import com.clientui.proxies.MicroserviceCommandesProxy;
 import com.clientui.proxies.MicroservicePaiementsProxy;
 import com.clientui.proxies.MicroserviceProduitsProxy;
 import org.slf4j.Logger;
@@ -36,7 +36,7 @@ public class ClientController {
     private MicroserviceProduitsProxy microserviceProduitsProxy;
 
     @Autowired
-    private MicroserviceCommandeProxy microserviceCommandeProxy;
+    private MicroserviceCommandesProxy microserviceCommandeProxy;
 
     @Autowired
     private MicroservicePaiementsProxy microservicePaiementsProxy;
@@ -105,11 +105,21 @@ public class ClientController {
         paiementBean.setNumeroCarte(numCarte());
 
         ResponseEntity<PaiementBean> paiement = microservicePaiementsProxy.payCommand(paiementBean);
+        CommandBean commandBean = microserviceCommandeProxy.getCommand(idCommand);
 
         Boolean paiementAccepte = false;
 
-        if(paiement.getStatusCode()== HttpStatus.CREATED)
-            paiementAccepte=true;
+        if(paiement.getStatusCode()== HttpStatus.CREATED) {
+            paiementAccepte = true;
+
+            commandBean.setCommandePayee(true);
+
+
+        }
+        else
+            commandBean.setCommandePayee(false);
+
+        microserviceCommandeProxy.updateCommand(commandBean,idCommand);
 
         model.addAttribute("paiementOk",paiementAccepte);
 

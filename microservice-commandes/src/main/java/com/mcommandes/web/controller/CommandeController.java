@@ -43,8 +43,8 @@ public class CommandeController {
      * save() mettra à jours uniquement les champs renseignés dans l'objet commande reçu. Ainsi dans ce cas, comme le champs date dans "commande" n'est
      * pas renseigné, la date précédemment enregistrée restera en place
      **/
-    @PutMapping(value = "/commandes")
-    public void updateCommande(@RequestBody Commande commande) {
+    @PutMapping(value = "/commandes/{commandeId}")
+    public void updateCommande(@RequestBody Commande commande, @PathVariable int commandeId) {
 
         commandesDao.save(commande);
     }

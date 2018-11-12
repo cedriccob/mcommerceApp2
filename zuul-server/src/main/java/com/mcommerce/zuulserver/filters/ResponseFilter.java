@@ -25,7 +25,7 @@ public class ResponseFilter extends ZuulFilter {
     //désactivé
     @Override
     public boolean shouldFilter() {
-        return false;
+        return true;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ResponseFilter extends ZuulFilter {
 
         HttpServletResponse response = RequestContext.getCurrentContext().getResponse();
 
-        response.setStatus(400);
+       // response.setStatus(400);
 
         log.info(" CODE HTTP {} ", response.getStatus());
 
